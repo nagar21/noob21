@@ -1,0 +1,109 @@
+﻿<!DOCTYPE html>
+<html>
+<head>    
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+    <title>three.js test</title>
+    <style >
+        body {
+            margin: 0;
+            max-width: auto;
+            max-height: auto;
+        }
+
+        canvas {
+            max-width: auto;
+            max-height: auto;
+        }
+    </style>
+</head>
+
+<body>
+    <div id="hilol">hi lol</div>
+    <style>#hilol {
+        font-size: 150px;
+        color:#66d9ff ;
+        position: absolute;
+        top: 10px;
+        width: 100%;
+        text-align: center;
+        z-index: 100;
+        display:block;
+    }</style>
+
+    <script src="js/three.js"> </script>
+    <script>
+        var scene = new THREE.Scene();
+        var camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
+
+        var renderer = new THREE.WebGLRenderer();
+        renderer.setSize(window.innerWidth, window.innerHeight);
+        document.body.appendChild(renderer.domElement);
+
+        // create the shape
+        var geometry = new THREE.BoxGeometry(1, 1, 1);
+        //create a material, color or image texture
+        var material = new THREE.MeshBasicMaterial({ color: "#ffff00", wireframe: false });
+        var material2 = new THREE.MeshBasicMaterial({ color: "#0099ff", wireframe: false });
+        var material3 = new THREE.MeshBasicMaterial({ color: "#ff0000", wireframe: false });
+
+        var cube = new THREE.Mesh(geometry, material);
+        var cube2 = new THREE.Mesh(geometry, material2);
+        var cube3 = new THREE.Mesh(geometry, material3);
+
+        scene.add(cube);
+        scene.add(cube2);
+        scene.add(cube3);
+
+        //Cube Position
+        cube.position.z=10;
+
+        cube2.position.z=-7.071;
+        cube2.position.y=7.071;
+
+        cube3.position.z=-7.071;
+        cube3.position.y=-7.071;
+
+
+        //game logic
+        var update = function ()
+        {
+            camera.rotation.z+=0.005;
+            camera.rotation.y+=0.013;
+            camera.rotation.x+=0.025;
+
+            cube.rotation.z+=0.05;
+            cube.rotation.y+=0.05;
+            cube.rotation.x+=0.05;
+
+            cube2.rotation.z+=0.05;
+            cube2.rotation.y+=0.05;
+            cube2.rotation.x+=0.05;
+
+            cube3.rotation.z+=0.05;
+            cube3.rotation.y+=0.05;
+            cube3.rotation.x+=0.05;
+
+        };
+
+        //draw scene
+        var render = function ()
+        {
+            renderer.render(scene, camera);
+        };
+
+        //run game loop (update, render, repeat)
+        var GameLoop = function ()
+        {
+            requestAnimationFrame(GameLoop);
+
+            update();
+            render();
+        };
+
+        GameLoop();
+
+    </script>
+
+</body>
+
+</html>
